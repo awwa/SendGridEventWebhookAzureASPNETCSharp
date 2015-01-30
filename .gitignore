@@ -159,5 +159,5 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-*/Web.Debug.config
+SendGridEventWebhook/Web.Debug.config
 packages
