@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using SendGridEventWebhook.Models;
 using Newtonsoft.Json;
+
+using System.Threading.Tasks;
+using System;
 
 namespace SendGridEventWebhook.Controllers
 {
@@ -20,18 +22,20 @@ namespace SendGridEventWebhook.Controllers
     {
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult SendGrid()
+        public async Task<ActionResult> SendGrid()
         {
             System.IO.StreamReader reader = new System.IO.StreamReader(HttpContext.Request.InputStream);
             string rawSendGridJSON = reader.ReadToEnd();
-            List<SendGridEvents> sendGridEvents = JsonConvert.DeserializeObject<List<SendGridEvents>>(rawSendGridJSON);
-            string count = sendGridEvents.Count.ToString();
-            System.Diagnostics.Trace.TraceError(rawSendGridJSON); // For debugging to the Azure Streaming logs
-            foreach (SendGridEvents sendGridEvent in sendGridEvents)
-            {
-                // Here is where you capture the event data
-                System.Diagnostics.Trace.TraceError(sendGridEvent.email); // For debugging to the Azure Streaming logs
-            }
+			DocumentDb ddb = DocumentDb.GetInstance();
+			try 
+			{
+				await ddb.RunBulkImport(rawSendGridJSON);
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				throw ex;
+			}
             return new HttpStatusCodeResult(200);
         }
     }
