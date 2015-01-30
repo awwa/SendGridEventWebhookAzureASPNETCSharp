@@ -26,16 +26,16 @@ namespace SendGridEventWebhook.Controllers
         {
             System.IO.StreamReader reader = new System.IO.StreamReader(HttpContext.Request.InputStream);
             string rawSendGridJSON = reader.ReadToEnd();
-			DocumentDb ddb = DocumentDb.GetInstance();
-			try 
-			{
-				await ddb.RunBulkImport(rawSendGridJSON);
-			}
-			catch(Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-				throw ex;
-			}
+            DocumentDb ddb = DocumentDb.GetInstance();
+            try 
+            {
+                await ddb.RunBulkImport(rawSendGridJSON);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
             return new HttpStatusCodeResult(200);
         }
     }
