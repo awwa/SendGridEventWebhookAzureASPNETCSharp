@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Net;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
-
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
-using System.Configuration;
-using System.IO;
 using Newtonsoft.Json;
-using System.Net;
 
 namespace SendGridEventWebhook.Controllers
 {

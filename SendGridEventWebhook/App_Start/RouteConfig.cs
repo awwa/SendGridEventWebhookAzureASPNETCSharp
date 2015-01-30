@@ -1,14 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-using System;
-using System.Linq;
-using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
-using System.Configuration;
 using SendGridEventWebhook.Controllers;
 
 namespace SendGridEventWebhook
